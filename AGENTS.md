@@ -116,3 +116,20 @@ Use descriptive prefixes to avoid conflicts:
 - **DO NOT use `{#anchor}` syntax** - breaks the framework parser
 - **USE HTML anchor tags** - `<a id="anchor-name"></a>` format is safe
 - **Test locally** to ensure links work properly after changes
+
+## Cursor Cloud specific instructions
+
+### Overview
+This is a static Next.js documentation site (no backend, no database, no Docker). The only service to run is the Next.js dev server.
+
+### Running the dev server
+- `pnpm dev` starts the Turbopack dev server at `http://localhost:3000`
+- First compile may take ~10s; subsequent hot reloads are fast
+
+### Gotchas
+- **Build scripts**: `@tailwindcss/oxide`, `esbuild`, and `sharp` require native build scripts. The `pnpm.onlyBuiltDependencies` field in `package.json` allowlists them. If `pnpm install` shows "Ignored build scripts" warnings for these packages, run `rm -rf node_modules && pnpm install` to trigger a clean install.
+- **Static export**: The site uses `output: "export"` in `next.config.mjs`, so `pnpm run start` won't serve the app without a static file server. Use `pnpm dev` for development.
+- **No tests**: There are no automated test suites. Validation is done via `pnpm run check` (Biome lint + link validation).
+- **Link validation** (`pnpm run lint:links`): Can take 30-45s as it validates all internal links across 800+ MDX files and navigation JSON files.
+- **Prettier warnings during build**: Build emits warnings about `prettier` not being installed — these come from a transitive dependency (`@fumari/json-schema-to-typescript`) and are harmless; do not install prettier.
+- **Algolia/GA env vars**: `NEXT_PUBLIC_ALGOLIA_ID`, `NEXT_PUBLIC_ALGOLIA_KEY`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_GA_ID` are optional. Search and analytics will be disabled without them but the site runs fine.
