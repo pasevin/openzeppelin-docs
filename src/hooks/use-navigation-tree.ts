@@ -39,11 +39,12 @@ export function useNavigationTree() {
 			pathname.startsWith("/wizard") ||
 			pathname.startsWith("/upgrades") ||
 			pathname.startsWith("/defender") ||
-			pathname.startsWith("/tools")
+			(pathname.startsWith("/tools") &&
+				!pathname.startsWith("/tools/ecosystem-adapters"))
 		) {
 			sessionStorage.setItem("lastEcosystem", "ethereum");
 		}
-		// Note: /ui-builder, /monitor, /relayer, and /ecosystem-adapters paths are intentionally NOT set here
+		// Note: /ui-builder, /monitor, /relayer, and /tools/ecosystem-adapters paths are intentionally NOT set here
 		// They inherit the lastEcosystem from whichever tab the user was in before navigating
 	}, [pathname]);
 
@@ -66,11 +67,14 @@ export function useNavigationTree() {
 		return uniswapTree;
 	} else if (pathname.startsWith("/substrate-runtimes")) {
 		return polkadotTree;
-	} else if (pathname.startsWith("/tools")) {
+	} else if (
+		pathname.startsWith("/tools") &&
+		!pathname.startsWith("/tools/ecosystem-adapters")
+	) {
 		return ethereumEvmTree;
 	}
 
-	// For shared paths like /monitor, /relayer, /ui-builder, and /ecosystem-adapters,
+	// For shared paths like /monitor, /relayer, /ui-builder, and /tools/ecosystem-adapters,
 	// check sessionStorage to see which ecosystem was last active, defaulting to ethereumEvmTree
 	if (typeof window !== "undefined") {
 		const lastEcosystem = sessionStorage.getItem("lastEcosystem");
@@ -79,7 +83,7 @@ export function useNavigationTree() {
 			pathname.startsWith("/monitor") ||
 			pathname.startsWith("/relayer") ||
 			pathname.startsWith("/ui-builder") ||
-			pathname.startsWith("/ecosystem-adapters")
+			pathname.startsWith("/tools/ecosystem-adapters")
 		) {
 			switch (lastEcosystem) {
 				case "stellar":

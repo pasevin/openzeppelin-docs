@@ -619,28 +619,28 @@
 		"index": {
 			"type": "page",
 			"name": "Overview",
-			"url": "/ecosystem-adapters"
+			"url": "/tools/ecosystem-adapters"
 		},
 		"children": [
 			{
 				"type": "page",
 				"name": "Architecture",
-				"url": "/ecosystem-adapters/architecture"
+				"url": "/tools/ecosystem-adapters/architecture"
 			},
 			{
 				"type": "page",
 				"name": "Getting Started",
-				"url": "/ecosystem-adapters/getting-started"
+				"url": "/tools/ecosystem-adapters/getting-started"
 			},
 			{
 				"type": "page",
 				"name": "Supported Ecosystems",
-				"url": "/ecosystem-adapters/supported-ecosystems"
+				"url": "/tools/ecosystem-adapters/supported-ecosystems"
 			},
 			{
 				"type": "page",
 				"name": "Building an Adapter",
-				"url": "/ecosystem-adapters/building-an-adapter"
+				"url": "/tools/ecosystem-adapters/building-an-adapter"
 			}
 		]
 	}
